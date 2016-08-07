@@ -3,6 +3,20 @@
 This is a Dockerfile to build a container running a PXE server,
 pre-configured to serve a Debian netinstall kernel and initrd.
 
+## Prequisites Only in China
+1. using daocloud.io to accelerate the image pull process via this link  https://www.daocloud.io/mirror#accelerator-doc. 
+1. pull the original debian jessie image.
+1. run and enter the debiann container using `docker run -it <original_jessie_image_id> /bin/sh`.
+1. replace the sources.list with debian mirror in China using the following command.
+`root@b7cbd5603ff3:/# cat  <<EOF > /etc/apt/sources.list 
+  > deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib
+  > deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib
+  > deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib
+  > deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib
+  > EOF`
+1. commit this container as a new image named `vic/jessie:china`
+1. replace the original base image with this image then follow the steps below.
+
 ## Quick start
 
 1. Of course you need Docker first!
